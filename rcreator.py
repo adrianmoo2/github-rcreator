@@ -4,7 +4,9 @@ import base64
 import json
 import re
 from github import Github
+import pygit2
 
+# ------- Pull README template and extract template portion ------- 
 
 url = "https://raw.githubusercontent.com/adrianmoo2/readme-template/master/README.md"
 
@@ -13,17 +15,38 @@ readmeText = str(readme.text)
 
 cleanReadmeText = re.search(r'^# \*Project title\*(.|\n)+\/LICENSE\)\.$', readmeText, re.MULTILINE)
 
+
+# ------- Github repo creation (change access_token value) ------- 
+
 g = Github(access_token)
 user = g.get_user()
 
-repo = user.create_repo("test-repo")
+nameInput = ""
+descriptionInput = ""
+privateInput = ""
+privateBool = True
 
-# adrianReadMeURL = "https://api.github.com/repos/adrianmoo2/readme-template/readme"
+def inputRepoParams():
+    global nameInput
+    nameInput = input("Desired name: ")
+    global descriptionInput
+    descriptionInput = input("Desired description: ")
+    global privateInput 
+    privateInput = input("Private? (yes / no): ")
+    global privateBool
+    if (privateInput == "yes"): 
+        privateBool = True
+    elif (privateInput == "no"):
+        privateBool = False
 
-# readme = requests.get(adrianReadMeURL)
-# readmeJSON = readme.json()
-# readmeContents = readmeJSON['content']
+inputRepoParams()
 
-# readmeInfo = base64.decodestring(readmeContents)
+repo = user.create_repo(
+    name = nameInput,
+    description = descriptionInput,
+    private = privateBool
+)
 
-# print (readmeInfo)
+# ------- README and local directory creation ------- 
+
+#repo.create_file("/README.md", "rcreator init commit :)", str(cleanReadmeText))

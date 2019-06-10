@@ -63,13 +63,13 @@ if re.match(r'\.$', descriptionInput) is None:
     descriptionInput += "."
 descriptionInput += " Repo made by github-rcreator."
 
-print (descriptionInput)
+repo = user.create_repo(
+    name = nameInput,
+    description = descriptionInput,
+    private = privateBool
+)
 
-# repo = user.create_repo(
-#     name = nameInput,
-#     description = descriptionInput,
-#     private = privateBool
-# )
+print ("Repo created")
 
 # ------- README and local directory creation ------- 
 

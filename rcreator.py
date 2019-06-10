@@ -26,6 +26,18 @@ descriptionInput = ""
 privateInput = ""
 privateBool = True
 
+def displayValues():
+    global nameInput
+    global descriptionInput
+    global privateInput
+
+    print ("\nHere are your inputted values:")
+    print ("Name: " + nameInput)
+    print ("Description: " + descriptionInput)
+    print ("Private: " + privateInput)
+
+    
+
 def inputRepoParams():
     global nameInput
     nameInput = input("Desired name: ")
@@ -38,8 +50,14 @@ def inputRepoParams():
         privateBool = True
     elif (privateInput == "no"):
         privateBool = False
+    
+    displayValues()
+    
 
-inputRepoParams()
+while True:
+    inputRepoParams()
+    if (input("\nAre these values okay? (yes / no): ") == "yes"):
+        break
 
 if re.match(r'\.$', descriptionInput) is None:
     descriptionInput += "."

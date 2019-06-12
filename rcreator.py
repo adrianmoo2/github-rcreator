@@ -81,3 +81,17 @@ repoClone = pygit2.clone_repository(repo.git_url, 'C:\\Users\\Adrian\\Desktop\\J
 
 repoClone.remotes.set_url("origin", repo.clone_url)
 index = repoClone.index
+index.add_all()
+author = pygit2.Signature("Adrian Tran", "me@adriantran.dev")
+committer = pygit2.Signature("Adrian Tran", "me@adriantran.dev")
+tree = index.write_tree()
+oid = repoClone.create_commit('refs/heads/master', author, committer, "init commit",tree,[repoClone.head.get_object().hex])
+remote = repoClone.remotes["origin"]
+credentials = pygit2.UserPass(user, password)
+remote.credentials = credentials
+
+callbacks=pygit2.RemoteCallbacks(credentials=credentials)
+
+# ------- Push -------
+
+remote.push(['refs/heads/master'],callbacks=callbacks)

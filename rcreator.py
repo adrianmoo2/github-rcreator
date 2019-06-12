@@ -44,11 +44,11 @@ def inputRepoParams():
     global descriptionInput
     descriptionInput = input("Desired description: ")
     global privateInput 
-    privateInput = input("Private? (yes / no): ")
+    privateInput = input("Private? (y / n): ")
     global privateBool
-    if (privateInput == "yes"): 
+    if (privateInput == "y"): 
         privateBool = True
-    elif (privateInput == "no"):
+    elif (privateInput == "n"):
         privateBool = False
     
     displayValues()
@@ -56,12 +56,12 @@ def inputRepoParams():
 
 while True:
     inputRepoParams()
-    if (input("\nAre these values okay? (yes / no): ") == "yes"):
+    if (input("\nAre these values okay? (y / n): ") == "y"):        
         break
 
 if re.match(r'\.$', descriptionInput) is None:
     descriptionInput += "."
-descriptionInput += " Repo made by github-rcreator."
+descriptionInput += " Made by github-rcreator."
 
 repo = user.create_repo(
     name = nameInput,
@@ -73,4 +73,11 @@ print ("Repo created")
 
 # ------- README and local directory creation ------- 
 
-#repo.create_file("/README.md", "rcreator init commit :)", str(cleanReadmeText))
+repo.create_file("/README.md", "rcreator init commit :)", str(cleanReadmeText))
+
+repoClone = pygit2.clone_repository(repo.git_url, 'C:\\Users\\Adrian\\Desktop\\Job-Stuff\\test-directory')
+
+# ------- Commit -------
+
+repoClone.remotes.set_url("origin", repo.clone_url)
+index = repoClone.index

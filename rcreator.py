@@ -15,7 +15,6 @@ readmeText = str(readme.text)
 
 cleanReadmeText = re.search(r'^# \*Project title\*(.|\n)+\/LICENSE\)\.$', readmeText, re.MULTILINE)
 
-
 # ------- Github repo creation (change access_token value) ------- 
 
 g = Github(access_token)
@@ -73,25 +72,25 @@ print ("Repo created")
 
 # ------- README and local directory creation ------- 
 
-repo.create_file("/README.md", "rcreator init commit :)", str(cleanReadmeText))
+repo.create_file("README.md", "rcreator init commit :)", cleanReadmeText.group(0))
 
-repoClone = pygit2.clone_repository(repo.git_url, 'C:\\Users\\Adrian\\Desktop\\Job-Stuff\\test-directory')
+# repoClone = pygit2.clone_repository(repo.git_url, 'C:\\Users\\Adrian\\Desktop\\Job-Stuff\\test-directory')
 
 # ------- Commit -------
 
-repoClone.remotes.set_url("origin", repo.clone_url)
-index = repoClone.index
-index.add_all()
-author = pygit2.Signature("Adrian Tran", "me@adriantran.dev")
-committer = pygit2.Signature("Adrian Tran", "me@adriantran.dev")
-tree = index.write_tree()
-oid = repoClone.create_commit('refs/heads/master', author, committer, "init commit",tree,[repoClone.head.get_object().hex])
-remote = repoClone.remotes["origin"]
-credentials = pygit2.UserPass(user, password)
-remote.credentials = credentials
+# repoClone.remotes.set_url("origin", repo.clone_url)
+# index = repoClone.index
+# index.add_all()
+# # author = pygit2.Signature("Adrian Tran", "me@adriantran.dev")
+# # committer = pygit2.Signature("Adrian Tran", "me@adriantran.dev")
+# tree = index.write_tree()
+# oid = repoClone.create_commit('refs/heads/master', "Adrian Tran", "Adrian Tran", "init commit",tree,[repoClone.head.get_object().hex])
+# remote = repoClone.remotes["origin"]
+# credentials = pygit2.UserPass(user, password)
+# remote.credentials = credentials
 
-callbacks=pygit2.RemoteCallbacks(credentials=credentials)
+# callbacks=pygit2.RemoteCallbacks(credentials=credentials)
 
 # ------- Push -------
 
-remote.push(['refs/heads/master'],callbacks=callbacks)
+# remote.push(['refs/heads/master'],callbacks=callbacks)

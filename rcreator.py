@@ -17,7 +17,7 @@ cleanReadmeText = re.search(r'^# \*Project title\*(.|\n)+\/LICENSE\)\.$', readme
 
 # ------- Github repo creation (change access_token value) ------- 
 
-g = Github(access_token)
+g = Github(user, password)
 user = g.get_user()
 
 nameInput = ""

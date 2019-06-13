@@ -2,3 +2,5 @@
 config.py
 config.pyc
 _pycache_
+__pycache__/config.cpython-37.pyc
+__pycache__/github.cpython-37.pyc

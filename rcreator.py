@@ -17,7 +17,7 @@ cleanReadmeText = re.search(r'^# \*Project title\*(.|\n)+\/LICENSE\)\.$', readme
 
 # ------- Github repo creation (change access_token value) ------- 
 
-g = Github(user, password)
+g = Github(username, password)
 user = g.get_user()
 
 nameInput = ""
@@ -58,21 +58,28 @@ while True:
     if (input("\nAre these values okay? (y / n): ") == "y"):        
         break
 
-if re.match(r'\.$', descriptionInput) is None:
+if re.match(r'^.*\.$', descriptionInput) is None:
     descriptionInput += "."
 descriptionInput += " Repo made by github-rcreator."
 
-repo = user.create_repo(
-    name = nameInput,
-    description = descriptionInput,
-    private = privateBool
-)
 
-print ("Repo created")
+# repo = user.create_repo(
+#     name = nameInput,
+#     description = descriptionInput,
+#     private = privateBool
+# )
+
+# print ("Repo created")
 
 # ------- README and local directory creation ------- 
 
-repo.create_file("README.md", "rcreator init commit :)", cleanReadmeText.group(0))
+readmeString = ('' + cleanReadmeText.group())
+
+subUser = re.sub(r'\bdatamade\b', username, readmeString)
+
+print (subUser)
+
+# repo.create_file("README.md", "rcreator init commit :)", cleanReadmeText.group(0))
 
 # repoClone = pygit2.clone_repository(repo.git_url, 'C:\\Users\\Adrian\\Desktop\\Job-Stuff\\test-directory')
 

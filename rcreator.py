@@ -60,7 +60,7 @@ while True:
 
 if re.match(r'\.$', descriptionInput) is None:
     descriptionInput += "."
-descriptionInput += " Made by github-rcreator."
+descriptionInput += " Repo made by github-rcreator."
 
 repo = user.create_repo(
     name = nameInput,

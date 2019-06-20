@@ -5,6 +5,7 @@ import json
 import re
 from github import Github
 import pygit2
+import sys
 
 # ------- Pull README template and extract template portion ------- 
 
@@ -49,37 +50,45 @@ def inputRepoParams():
         privateBool = True
     elif (privateInput == "n"):
         privateBool = False
+    else:
+        print ("\nInvalid input detected. Repo automatically private.")
+        privateBool = True
+        privateInput = "y"
     
     displayValues()
     
 
 while True:
     inputRepoParams()
-    if (input("\nAre these values okay? (y / n): ") == "y"):        
+    repoParamsInput = input("\nAre these values okay? (y / n): ")
+    if (repoParamsInput == "y"):        
         break
+    elif (repoParamsInput != "n"):
+        print ("\nInvalid input deteced. Repo creation stopped.")
+        sys.exit(0)
+        
 
 if re.match(r'^.*\.$', descriptionInput) is None:
     descriptionInput += "."
 descriptionInput += " Repo made by github-rcreator."
 
 
-# repo = user.create_repo(
-#     name = nameInput,
-#     description = descriptionInput,
-#     private = privateBool
-# )
+repo = user.create_repo(
+    name = nameInput,
+    description = descriptionInput,
+    private = privateBool
+)
 
-# print ("Repo created")
+print ("Repo created")
 
 # ------- README and local directory creation ------- 
 
 readmeString = ('' + cleanReadmeText.group())
 
 subUser = re.sub(r'\bdatamade\b', username, readmeString)
+subRepo = re.sub(r'\byour-repo-here\b', nameInput, subUser)
 
-print (subUser)
-
-# repo.create_file("README.md", "rcreator init commit :)", cleanReadmeText.group(0))
+repo.create_file("README.md", "rcreator init commit :)", subRepo)
 
 # repoClone = pygit2.clone_repository(repo.git_url, 'C:\\Users\\Adrian\\Desktop\\Job-Stuff\\test-directory')
 

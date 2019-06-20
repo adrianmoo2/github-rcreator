@@ -76,7 +76,8 @@ descriptionInput += " Repo made by github-rcreator."
 repo = user.create_repo(
     name = nameInput,
     description = descriptionInput,
-    private = privateBool
+    private = privateBool,
+    license_template = "mit"
 )
 
 print ("Repo created")

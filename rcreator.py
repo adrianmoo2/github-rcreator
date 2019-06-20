@@ -91,7 +91,7 @@ subRepo = re.sub(r'\byour-repo-here\b', nameInput, subUser)
 
 repo.create_file("README.md", "rcreator init commit :)", subRepo)
 
-# repoClone = pygit2.clone_repository(repo.git_url, 'C:\\Users\\Adrian\\Desktop\\Job-Stuff\\test-directory')
+repoClone = pygit2.clone_repository(repo.git_url, 'C:\\Users\\Adrian\\Desktop\\Job-Stuff\\test-directory')
 
 # ------- Commit -------
 
@@ -103,7 +103,7 @@ repo.create_file("README.md", "rcreator init commit :)", subRepo)
 # tree = index.write_tree()
 # oid = repoClone.create_commit('refs/heads/master', "Adrian Tran", "Adrian Tran", "init commit",tree,[repoClone.head.get_object().hex])
 # remote = repoClone.remotes["origin"]
-# credentials = pygit2.UserPass(user, password)
+# credentials = pygit2.UserPass(username, password)
 # remote.credentials = credentials
 
 # callbacks=pygit2.RemoteCallbacks(credentials=credentials)

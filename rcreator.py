@@ -14,7 +14,7 @@ url = "https://raw.githubusercontent.com/adrianmoo2/readme-template/master/READM
 readme = requests.get(url)
 readmeText = str(readme.text)
 
-cleanReadmeText = re.search(r'^# \*Project title\*(.|\n)+\/LICENSE\)\.$', readmeText, re.MULTILINE)
+cleanReadmeText = re.search(r'^# Project title(.|\n)+\/LICENSE\)\.$', readmeText, re.MULTILINE)
 
 # ------- Github repo creation (change access_token value) ------- 
 
@@ -73,14 +73,14 @@ if re.match(r'^.*\.$', descriptionInput) is None:
 descriptionInput += " Repo made by github-rcreator."
 
 
-repo = user.create_repo(
-    name = nameInput,
-    description = descriptionInput,
-    private = privateBool,
-    license_template = "mit"
-)
+# repo = user.create_repo(
+#     name = nameInput,
+#     description = descriptionInput,
+#     private = privateBool,
+#     license_template = "mit"
+# )
 
-print ("Repo created")
+# print ("Repo created")
 
 # ------- README and local directory creation ------- 
 
@@ -89,9 +89,9 @@ readmeString = ('' + cleanReadmeText.group())
 subUser = re.sub(r'\bdatamade\b', username, readmeString)
 subRepo = re.sub(r'\byour-repo-here\b', nameInput, subUser)
 
-repo.create_file("README.md", "rcreator init commit :)", subRepo)
+# repo.create_file("README.md", "rcreator init commit :)", subRepo)
 
-repoClone = pygit2.clone_repository(repo.git_url, 'C:\\Users\\Adrian\\Desktop\\Job-Stuff\\test-directory')
+# repoClone = pygit2.clone_repository(repo.git_url, 'C:\\Users\\Adrian\\Desktop\\Job-Stuff\\test-directory')
 
 # ------- Commit -------
 

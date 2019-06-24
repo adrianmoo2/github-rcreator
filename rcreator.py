@@ -85,7 +85,7 @@ print ("Repo created")
 # ------- README and local directory creation ------- 
 
 readmeString = ('' + cleanReadmeText.group())
-cleanProjectTitle = nameInput.replace("-", " ")
+cleanProjectTitle = (nameInput.replace("-", " ")).title()
 
 subTitle = re.sub(r'\bProject title\b', cleanProjectTitle, readmeString)
 subUser = re.sub(r'\bdatamade\b', username, subTitle)

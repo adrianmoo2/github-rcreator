@@ -73,23 +73,25 @@ if re.match(r'^.*\.$', descriptionInput) is None:
 descriptionInput += " Repo made by github-rcreator."
 
 
-# repo = user.create_repo(
-#     name = nameInput,
-#     description = descriptionInput,
-#     private = privateBool,
-#     license_template = "mit"
-# )
+repo = user.create_repo(
+    name = nameInput,
+    description = descriptionInput,
+    private = privateBool,
+    license_template = "mit"
+)
 
-# print ("Repo created")
+print ("Repo created")
 
 # ------- README and local directory creation ------- 
 
 readmeString = ('' + cleanReadmeText.group())
+cleanProjectTitle = nameInput.replace("-", " ")
 
-subUser = re.sub(r'\bdatamade\b', username, readmeString)
+subTitle = re.sub(r'\bProject title\b', cleanProjectTitle, readmeString)
+subUser = re.sub(r'\bdatamade\b', username, subTitle)
 subRepo = re.sub(r'\byour-repo-here\b', nameInput, subUser)
 
-# repo.create_file("README.md", "rcreator init commit :)", subRepo)
+repo.create_file("README.md", "rcreator init commit :)", subRepo)
 
 # repoClone = pygit2.clone_repository(repo.git_url, 'C:\\Users\\Adrian\\Desktop\\Job-Stuff\\test-directory')
 
